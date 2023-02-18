@@ -46,7 +46,7 @@ public class BasicServer {
     private void registerAddressRequestWithHandlers() {
         server.createContext("/", this::handleIndexIncomingServerRequests);
 
-        registerGet("/", exchange -> sendFile(exchange, makeFilePath("index.html"), ContentType.TEXT_HTML));
+        registerGet("/", exchange -> sendFile(exchange, makeFilePath("calendar.html"), ContentType.TEXT_HTML));
 
         registerFileHandler(".css", ContentType.TEXT_CSS);
         registerFileHandler(".html", ContentType.TEXT_HTML);

@@ -23,7 +23,7 @@ public final class Generator {
 
     private static List<String> prepareLorem() {
         try {
-            var rawLorem = Files.readString(Paths.get("lorem.txt"));
+            var rawLorem = Files.readString(Paths.get("json/lorem.txt"));
             return Arrays.stream(rawLorem.split("\\s"))
                     .map(String::toLowerCase)
                     .map(String::strip)
@@ -32,10 +32,6 @@ public final class Generator {
             e.printStackTrace();
         }
         return List.of();
-    }
-
-    public static String makeDescription() {
-        return makeGibberish(20, 10);
     }
 
     private static String makeGibberish(int randomAmount, int min) {
@@ -55,10 +51,6 @@ public final class Generator {
         return  gibberish.endsWith(".") ? gibberish : gibberish + ".";
     }
 
-    public static String makeName() {
-        return makeGibberish(3,2);
-    }
-
     private static String takeOneWord() {
         return loremWords.get(r.nextInt(loremWords.size()));
     }
@@ -73,5 +65,11 @@ public final class Generator {
         return removeExtra.matcher(makeGibberish(0,1))
                 .replaceAll("")
                 .replace(" ", "");
+    }
+    public static String makeDescription() {
+        return makeGibberish(20, 10);
+    }
+    public static String makeName() {
+        return makeGibberish(3,2);
     }
 }
