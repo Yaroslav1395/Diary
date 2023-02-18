@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <header class="container">
+        <h1>Задачи на ${getTaskDay()}-${getTaskMonth()}-${getTaskYear()} года</h1>
+    </header>
+    <section class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                  <th scope="col">Тип</th>
+                  <th scope="col">Задача</th>
+                  <th scope="col">Описание</th>
+                  <th scope="col">Действие</th>
+              </tr>
+            </thead>
+            <tbody>
+            <#list taskList as task>
+                <tr>
+                    <td>
+                        <div class="affairs">
+                            <div class="${task.type.getNameOfTask()}">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>${task.name}</td>
+                    <td>${task.description}</td>
+                    <td><a href="/day?remove=${task.name}&day=${getTaskDay()}">Удалить</a></td>
+                </tr>
+            </#list>>
+            </tbody>
+          </table>
+        <a href="/calendar">Календарь</a>
+        <p></p>
+        <a href="/newTask?day=${getTaskDay()}&month=${getTaskMonth()}&year=${getTaskYear()}">Добавить задачу</a>
+    </section>
+</body>
+</html>
