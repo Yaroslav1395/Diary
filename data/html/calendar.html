@@ -27,19 +27,33 @@
             </div>
         </div>
         <div class="days">
+            <#assign firstDayOfWeek = getFirstDayOfWeek()>
             <#list calendar as month, days>
                 <#assign daysTasks = days.getDaysTasks()>
+                <#assign currentDay = getCurrentDay()>
+                <#if firstDayOfWeek[0] != "MONDAY">
+                <div class="cardEmpty"></div>
+                </#if>
+                <#if firstDayOfWeek[1] != "WEDNESDAY" && firstDayOfWeek[0] != "TUESDAY">
+                <div class="cardEmpty"></div>
+                </#if>
+                <#if firstDayOfWeek[2] != "FRIDAY" && firstDayOfWeek[1] != "THURSDAY" && firstDayOfWeek[0] != "WEDNESDAY">
+                <div class="cardEmpty"></div>
+                </#if>
+                <#if firstDayOfWeek[3] != "SUNDAY" && firstDayOfWeek[2] != "SATURDAY" && firstDayOfWeek[1] != "FRIDAY" && firstDayOfWeek[0] != "THURSDAY">
+                <div class="cardEmpty"></div>
+                </#if>
                 <#list daysTasks as day, tasks>
                     <#assign currentDay = getCurrentDay()>
                     <#if currentDay == day>
-                        <a href="#">
+                        <a href="/day?day=${day}">
                             <div class="cardOfDay">
                                 <p>${day}</p>
                                 <div class = "affairs-wrap">
-                                    <#list tasks as task>
-                                        <#assign currentDay = getTypeOfTask(task)>
+                                    <#list tasks.getTaskList() as task>
+                                        <#assign type = getTypeOfTask(task)>
                                         <div class="affairs">
-                                            <div class="${currentDay}">
+                                            <div class="${type}">
 
                                             </div>
                                         </div>
@@ -48,14 +62,14 @@
                             </div>
                         </a>
                     <#else>
-                        <a href="#">
+                        <a href="/day?day=${day}">
                             <div class="card">
                                 <p>${day}</p>
                                 <div class = "affairs-wrap">
-                                    <#list tasks as task>
-                                        <#assign currentDay = getTypeOfTask(task)>
+                                    <#list tasks.getTaskList() as task>
+                                        <#assign type = getTypeOfTask(task)>
                                         <div class="affairs">
-                                            <div class="${currentDay}">
+                                            <div class="${type}">
 
                                             </div>
                                         </div>

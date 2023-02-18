@@ -1,36 +1,47 @@
 package Tasks;
 
-import Generetor.Generator;
-
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tasks {
-    private Map<Integer, List<Task>> daysTasks= new HashMap<>();
+    private List<Task> taskList = new ArrayList<>();
 
     public Tasks() {
-        createDaysTask();
     }
 
-    public Map<Integer, List<Task>> getDaysTasks() {
-        return daysTasks;
+    public Tasks(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
-    public void createDaysTask(){
-        LocalDateTime time = LocalDateTime.now();
-        for (int i = 1; i < 31; i++){
-            if(i != 0){
-                time = time.plusDays(1);
-            }
-            daysTasks.put(i, new ArrayList<>());
-            for(int j = 0; j < Type.values().length; j++){
-                daysTasks.get(i).add(new Task(
-                        Type.getRandomType(),
-                        Generator.makeName(),
-                        Generator.makeDescription(),
-                        time.toString()));
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+    public void addNewTask(Task task){
+        taskList.add(task);
+    }
+    public int getTaskDay(){
+        return LocalDateTime.parse(taskList.get(0).getDateTime()).getDayOfMonth();
+    }
+    public int getTaskMonth(){
+        return LocalDateTime.parse(taskList.get(0).getDateTime()).getMonth().getValue();
+    }
+    public int getTaskYear(){
+        return LocalDateTime.parse(taskList.get(0).getDateTime()).getYear();
+    }
+    public void removeTaskByName(String name){
+        Task taskForRemove = null;
+        for (Task task: taskList) {
+            if(task.getName().equals(name)){
+                taskForRemove = task;
+                break;
             }
         }
+        taskList.remove(taskForRemove);
     }
-
+    public String getNameOfFirstDayOfWeek(){
+        Task task = taskList.get(0);
+        LocalDateTime date = LocalDateTime.parse(task.getDateTime());
+        return date.getDayOfWeek().toString();
+    }
 }
